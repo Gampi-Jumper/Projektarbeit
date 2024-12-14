@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Projectile")
         {
             TakeDamage(other.GetComponent<Projectile>().damage);
+            Destroy(other.gameObject);
         }
 
         if (other.tag == "Player")
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            ScoreManager.instance.AddScore(1);
         }
     }
 }
