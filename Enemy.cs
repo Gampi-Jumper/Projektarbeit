@@ -8,11 +8,29 @@ public class Enemy : MonoBehaviour
     public float speed;
     Transform player;
     public float offset;
-    public int health;
+    private int health;
+
+    public Sprite spriteLevel1;
+    public Sprite spriteLevel2;
+    private SpriteRenderer spriteRenderer;
+
+    EnemyRandom enemyRandom;
 
     void Start()
     {
         player = FindObjectOfType<PlayerController>().transform;
+
+        enemyRandom = FindObjectOfType<EnemyRandom>();
+        health = enemyRandom.random;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (health == 1)
+        {
+            spriteRenderer.sprite = spriteLevel1;
+        }
+        if (health == 2)
+        {
+            spriteRenderer.sprite = spriteLevel2;
+        }
     }
 
     void Update()
@@ -41,6 +59,10 @@ public class Enemy : MonoBehaviour
     void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
+        if (health == 1)
+        {
+            spriteRenderer.sprite = spriteLevel1;
+        }
         if (health <= 0)
         {
             Destroy(gameObject);

@@ -13,7 +13,10 @@ public class ScoreManager : MonoBehaviour
 
     public void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
 
         scoreText = GetComponent<TextMeshProUGUI>();
     }
