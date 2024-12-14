@@ -9,7 +9,6 @@ public class Spawner : MonoBehaviour
     public GameObject enemy;
     public Transform[] spawnPoints;
 
-    //Test
 
     void Update()
     {
