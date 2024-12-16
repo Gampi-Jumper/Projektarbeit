@@ -8,8 +8,9 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
 
     private int score = 0;
-
     TextMeshProUGUI scoreText;
+
+    public AudioSource killSound;
 
     public void Awake()
     {
@@ -30,5 +31,6 @@ public class ScoreManager : MonoBehaviour
     {
         score += points;
         scoreText.text = score.ToString();
+        killSound.Play();
     }
 }
