@@ -22,5 +22,6 @@ public class GameOverEffect : MonoBehaviour
             yield return null;
         }
         image.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
+        gameObject.SetActive(false);
     }
 }
