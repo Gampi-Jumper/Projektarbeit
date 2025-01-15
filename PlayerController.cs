@@ -13,20 +13,25 @@ public class PlayerController : MonoBehaviour
     public float timeBetweenShots;
     float nextShotTime;
 
-    public int maxAmmo = 5;       // Maximale Schüsse im Magazin
-    public int currentAmmo;       // Aktuelle Anzahl der Schüsse
-    public float reloadTime = 2f; // Dauer des Nachladens in Sekunden
+    private int maxAmmo;
+    private int currentAmmo;
+    private float reloadTime;
     private bool isReloading = false;
 
-    public GameObject ammoImagePrefab; // Prefab für ein Munitionsbild
-    public Transform ammoContainer;   // Container für die Munitionsbilder
+    public GameObject ammoImagePrefab;
+    public Transform ammoContainer;
 
     public AudioSource shootSound;
-    public AudioSource reloadSound;
+    public AudioSource longReloadSound;
+    public AudioSource mediumReloadSound;
+    public AudioSource shortReloadSound;
     public AudioSource emptyGunSound;
 
     void Start()
     {
+        reloadTime = PlayerPrefs.GetFloat("ReloadTime", 1.5f);
+        maxAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
+        currentAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
         UpdateAmmoUI();
     }
 
@@ -76,7 +81,19 @@ public class PlayerController : MonoBehaviour
     IEnumerator Reload()
     {
         isReloading = true;
-        reloadSound.Play();
+        reloadTime = PlayerPrefs.GetFloat("ReloadTime", 1.5f);
+        if(reloadTime == 1.5f)
+        {
+            longReloadSound.Play();        
+        }
+        if(reloadTime == 1f)
+        {
+            mediumReloadSound.Play();        
+        }
+        if(reloadTime == 1.5f)
+        {
+            shortReloadSound.Play();        
+        }
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
         isReloading = false;

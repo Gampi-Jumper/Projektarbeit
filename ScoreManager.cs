@@ -9,9 +9,11 @@ public class ScoreManager : MonoBehaviour
 
     private int score = 0;
     private int highScore;
+    private int money;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI moneyText;
 
     public AudioSource killSound;
 
@@ -23,6 +25,7 @@ public class ScoreManager : MonoBehaviour
         }
 
         highScore = PlayerPrefs.GetInt("HighScore", 0);
+        money = PlayerPrefs.GetInt("Money", 0);
     }
 
     void Start()
@@ -31,12 +34,17 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.Save();
         scoreText.text = score.ToString();
         highScoreText.text = highScore.ToString();
+        moneyText.text = money.ToString();
     }
 
     public void AddScore(int points)
     {
         score += points;
         PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.Save();
+
+        money += points;
+        PlayerPrefs.SetInt("Money", money);
         PlayerPrefs.Save();
 
         if (score > highScore)
@@ -48,6 +56,7 @@ public class ScoreManager : MonoBehaviour
         }
 
         scoreText.text = score.ToString();
+        moneyText.text = money.ToString();
         killSound.Play();
     }
 }
