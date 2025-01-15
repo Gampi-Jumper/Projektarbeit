@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed;
+    private int currentGun;
+    private float speed;
+
     public int damage;
 
     void Start()
     {
+        currentGun = PlayerPrefs.GetInt("CurrentGun", 1);
+        if(currentGun == 1)
+        {
+            speed = 20;
+        }
+        else
+        {
+            speed = 40;
+        }
+
         Destroy(gameObject, 3f);
     }
 

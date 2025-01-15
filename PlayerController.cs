@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    public Sprite spritePistole;
+    public Sprite spriteSniper;
+    private int currentGun;
+
     public float speed;
     public float offset;
 
@@ -29,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         reloadTime = PlayerPrefs.GetFloat("ReloadTime", 1.5f);
         maxAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
         currentAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
@@ -37,6 +43,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        currentGun = PlayerPrefs.GetInt("CurrentGun", 1);
+        if(currentGun == 1)
+        {
+            spriteRenderer.sprite = spritePistole;
+        }
+        else
+        {
+            spriteRenderer.sprite = spriteSniper;
+        }
+
         Vector3 playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         transform.position += playerInput.normalized * speed * Time.deltaTime;
 
@@ -90,7 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             mediumReloadSound.Play();        
         }
-        if(reloadTime == 1.5f)
+        if(reloadTime == 0.5f)
         {
             shortReloadSound.Play();        
         }
