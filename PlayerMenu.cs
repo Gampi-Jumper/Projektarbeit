@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMenu : MonoBehaviour
 {
+    public GameObject sniperFunction;
+
     private SpriteRenderer spriteRenderer;
     public Sprite spritePistole;
     public Sprite spriteSniper;
@@ -26,10 +28,12 @@ public class PlayerMenu : MonoBehaviour
         if(currentGun == 1)
         {
             spriteRenderer.sprite = spritePistole;
+            sniperFunction.SetActive(false);
         }
         else
         {
             spriteRenderer.sprite = spriteSniper;
+            sniperFunction.SetActive(true);
         }
     }
 }
