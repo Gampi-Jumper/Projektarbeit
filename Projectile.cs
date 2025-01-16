@@ -16,9 +16,13 @@ public class Projectile : MonoBehaviour
         {
             speed = 20;
         }
-        else
+        if(currentGun == 2)
         {
             speed = 40;
+        }
+        if(currentGun == 3)
+        {
+            speed = 20;
         }
 
         Destroy(gameObject, 3f);

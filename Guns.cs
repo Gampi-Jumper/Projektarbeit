@@ -7,10 +7,12 @@ public class Guns : MonoBehaviour
 {
     private int money;
 
-    public GameObject schloss;
+    public GameObject schlossGewehr;
+    public GameObject schlossMinigun;
 
     public Image buttonPistole;
     public Image buttonGewehr;
+    public Image buttonMinigun;
 
     private int currentGun;
 
@@ -18,12 +20,14 @@ public class Guns : MonoBehaviour
     public AudioSource buySound;
     public AudioSource errorSound;
 
-    private int gekauft;
+    private int gekauftGewehr;
+    private int gekauftMinigun;
 
     void Awake()
     {
         buttonPistole.color = Color.green;
         buttonGewehr.color = Color.white;
+        buttonMinigun.color = Color.white;
     }
 
     void Start()
@@ -33,18 +37,30 @@ public class Guns : MonoBehaviour
         {
             buttonPistole.color = Color.green;
             buttonGewehr.color = Color.white;
+            buttonMinigun.color = Color.white;
         }
-        
         if(currentGun == 2)
         {
             buttonPistole.color = Color.white;
             buttonGewehr.color = Color.green;
+            buttonMinigun.color = Color.white;
+        }
+        if(currentGun == 3)
+        {
+            buttonPistole.color = Color.white;
+            buttonGewehr.color = Color.white;
+            buttonMinigun.color = Color.green;
         }
         
-        gekauft = PlayerPrefs.GetInt("Gekauft", 0);
-        if(gekauft == 1)
+        gekauftGewehr = PlayerPrefs.GetInt("GekauftGewehr", 0);
+        if(gekauftGewehr == 1)
         {
-            schloss.SetActive(false);
+            schlossGewehr.SetActive(false);
+        }
+        gekauftMinigun = PlayerPrefs.GetInt("GekauftMinigun", 0);
+        if(gekauftMinigun == 1)
+        {
+            schlossMinigun.SetActive(false);
         }
     }
 
@@ -56,19 +72,21 @@ public class Guns : MonoBehaviour
         PlayerPrefs.Save();
         buttonPistole.color = Color.green;
         buttonGewehr.color = Color.white;
+        buttonMinigun.color = Color.white;
         buttonSound.Play();
     }
 
     public void SetGewehr()
     {
-        gekauft = PlayerPrefs.GetInt("Gekauft", 0);
-        if(gekauft == 1)
+        gekauftGewehr = PlayerPrefs.GetInt("GekauftGewehr", 0);
+        if(gekauftGewehr == 1)
         {
             currentGun = 2;
             PlayerPrefs.SetInt("CurrentGun", currentGun);
             PlayerPrefs.Save();
             buttonPistole.color = Color.white;
             buttonGewehr.color = Color.green;
+            buttonMinigun.color = Color.white;
             buttonSound.Play();
         }
         else
@@ -76,7 +94,7 @@ public class Guns : MonoBehaviour
             money = PlayerPrefs.GetInt("Money", 0);
             if(money >= 2000)
             {
-                schloss.SetActive(false);
+                schlossGewehr.SetActive(false);
                 money = money - 2000;
                 PlayerPrefs.SetInt("Money", money);
                 PlayerPrefs.Save();
@@ -85,18 +103,56 @@ public class Guns : MonoBehaviour
                 PlayerPrefs.Save();
                 buttonPistole.color = Color.white;
                 buttonGewehr.color = Color.green;
-                gekauft = 1;
-                PlayerPrefs.SetInt("Gekauft", gekauft);
+                buttonMinigun.color = Color.white;
+                gekauftGewehr = 1;
+                PlayerPrefs.SetInt("GekauftGewehr", gekauftGewehr);
                 PlayerPrefs.Save();
                 buySound.Play();
             }
             else
             {
                 errorSound.Play();
-            }
-            
+            }   
         }
-
     }
 
+    public void SetMinigun()
+    {
+        gekauftMinigun = PlayerPrefs.GetInt("GekauftMinigun", 0);
+        if(gekauftMinigun == 1)
+        {
+            currentGun = 3;
+            PlayerPrefs.SetInt("CurrentGun", currentGun);
+            PlayerPrefs.Save();
+            buttonPistole.color = Color.white;
+            buttonGewehr.color = Color.white;
+            buttonMinigun.color = Color.green;
+            buttonSound.Play();
+        }
+        else
+        {
+            money = PlayerPrefs.GetInt("Money", 0);
+            if(money >= 10000)
+            {
+                schlossMinigun.SetActive(false);
+                money = money - 10000;
+                PlayerPrefs.SetInt("Money", money);
+                PlayerPrefs.Save();
+                currentGun = 3;
+                PlayerPrefs.SetInt("CurrentGun", currentGun);
+                PlayerPrefs.Save();
+                buttonPistole.color = Color.white;
+                buttonGewehr.color = Color.white;
+                buttonMinigun.color = Color.green;
+                gekauftMinigun = 1;
+                PlayerPrefs.SetInt("GekauftMinigun", gekauftMinigun);
+                PlayerPrefs.Save();
+                buySound.Play();
+            }
+            else
+            {
+                errorSound.Play();
+            }   
+        }
+    }
 }

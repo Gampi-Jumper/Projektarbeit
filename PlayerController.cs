@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject sniperFunction;
+    public GameObject minigunFunction;
+
+    private bool isHoldingMouse = false;
+    private float timeMinigunShots = 0.15f;
+    public AudioSource minigunSound;
+
     private SpriteRenderer spriteRenderer;
     public Sprite spritePistole;
     public Sprite spriteSniper;
+    public Sprite spriteMinigun;
     private int currentGun;
 
     public float speed;
@@ -39,20 +47,29 @@ public class PlayerController : MonoBehaviour
         maxAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
         currentAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
         UpdateAmmoUI();
+        currentGun = PlayerPrefs.GetInt("CurrentGun", 1);
+        if(currentGun == 3)
+        {
+            spriteRenderer.sprite = spriteMinigun;
+            sniperFunction.SetActive(false);
+            minigunFunction.SetActive(true);
+        }
+        if(currentGun == 2)
+        {
+            spriteRenderer.sprite = spriteSniper;
+            sniperFunction.SetActive(true);
+            minigunFunction.SetActive(false);
+        }
+        if(currentGun == 1)
+        {
+            spriteRenderer.sprite = spritePistole;
+            sniperFunction.SetActive(false);
+            minigunFunction.SetActive(false);
+        }
     }
 
     void Update()
     {
-        currentGun = PlayerPrefs.GetInt("CurrentGun", 1);
-        if(currentGun == 1)
-        {
-            spriteRenderer.sprite = spritePistole;
-        }
-        else
-        {
-            spriteRenderer.sprite = spriteSniper;
-        }
-
         Vector3 playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         transform.position += playerInput.normalized * speed * Time.deltaTime;
 
@@ -64,13 +81,44 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (Input.GetMouseButtonDown(0))
+
+        currentGun = PlayerPrefs.GetInt("CurrentGun", 1);
+        if (currentGun == 3)
         {
-            Shoot();
+            if (Input.GetMouseButtonDown(0) && !isHoldingMouse)
+            {
+                isHoldingMouse = true;
+                minigunSound.loop = true;
+                minigunSound.Play();
+                StartCoroutine(ShootingMinigun());
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                isHoldingMouse = false;
+                minigunSound.Stop();
+            }
         }
-        if (Input.GetMouseButtonDown(1) && currentAmmo < maxAmmo)
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot();
+            }
+        }
+
+
+        if (Input.GetMouseButtonDown(1) && currentAmmo < maxAmmo && currentGun != 3)
         {
             StartCoroutine(Reload());
+        }
+    }
+
+    private IEnumerator ShootingMinigun()
+    {
+        while (isHoldingMouse)
+        {
+            Instantiate(projectile, shotPoint.position, shotPoint.rotation);
+            yield return new WaitForSeconds(timeMinigunShots);
         }
     }
 
@@ -86,7 +134,6 @@ public class PlayerController : MonoBehaviour
                 nextShotTime = Time.time + timeBetweenShots;
                 Instantiate(projectile, shotPoint.position, shotPoint.rotation);
             }
-
         }
         else
         {
