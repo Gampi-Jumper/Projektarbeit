@@ -74,10 +74,10 @@ public class Guns : MonoBehaviour
         else
         {
             money = PlayerPrefs.GetInt("Money", 0);
-            if(money >= 300)
+            if(money >= 2000)
             {
                 schloss.SetActive(false);
-                money = money - 300;
+                money = money - 2000;
                 PlayerPrefs.SetInt("Money", money);
                 PlayerPrefs.Save();
                 currentGun = 2;

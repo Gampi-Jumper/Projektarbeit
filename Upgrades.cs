@@ -47,9 +47,9 @@ public class Upgrades : MonoBehaviour
         else
         {
             money = PlayerPrefs.GetInt("Money", 0);
-            if(money >= 30)
+            if(money >= 250)
             {
-                money = money - 30;
+                money = money - 250;
                 PlayerPrefs.SetInt("Money", money);
                 PlayerPrefs.Save();
                 maxAmmo = PlayerPrefs.GetInt("MaxAmmo", 5);
@@ -80,9 +80,9 @@ public class Upgrades : MonoBehaviour
         else
         {
             money = PlayerPrefs.GetInt("Money", 0);
-            if(money >= 50)
+            if(money >= 500)
             {
-                money = money - 50;
+                money = money - 500;
                 PlayerPrefs.SetInt("Money", money);
                 PlayerPrefs.Save();
                 reloadTime = PlayerPrefs.GetFloat("ReloadTime", 1.5f);

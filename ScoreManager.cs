@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.Save();
 
-        money += points;
+        money += points * 10;
         PlayerPrefs.SetInt("Money", money);
         PlayerPrefs.Save();
 
