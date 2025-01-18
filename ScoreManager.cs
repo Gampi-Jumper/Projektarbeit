@@ -59,4 +59,20 @@ public class ScoreManager : MonoBehaviour
         moneyText.text = money.ToString();
         killSound.Play();
     }
+
+    public void AddScoreGranate(int points)
+    {
+        score += points;
+        PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.Save();
+        scoreText.text = score.ToString();
+
+        if (score > highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+            highScoreText.text = highScore.ToString();
+        }
+    }
 }

@@ -44,6 +44,12 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag == "Granate")
+        {
+            Destroy(gameObject);
+            ScoreManager.instance.AddScoreGranate(1);
+        }
+
         if (other.tag == "Projectile")
         {
             TakeDamage(other.GetComponent<Projectile>().damage);
