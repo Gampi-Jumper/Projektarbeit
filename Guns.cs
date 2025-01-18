@@ -132,10 +132,10 @@ public class Guns : MonoBehaviour
         else
         {
             money = PlayerPrefs.GetInt("Money", 0);
-            if(money >= 10000)
+            if(money >= 5000)
             {
                 schlossMinigun.SetActive(false);
-                money = money - 10000;
+                money = money - 5000;
                 PlayerPrefs.SetInt("Money", money);
                 PlayerPrefs.Save();
                 currentGun = 3;
