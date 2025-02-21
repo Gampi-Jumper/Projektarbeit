@@ -10,7 +10,7 @@ public class Reset : MonoBehaviour
     {
         PlayerPrefs.SetInt("Granates", 0);
         PlayerPrefs.SetInt("Level", 1);
-        PlayerPrefs.SetInt("LevelScore", 10);
+        PlayerPrefs.SetInt("LevelScore", 20);
         PlayerPrefs.SetInt("MaxAmmo", 5);
         PlayerPrefs.SetFloat("ReloadTime", 1.5f);
         PlayerPrefs.SetInt("GekauftGewehr", 0);

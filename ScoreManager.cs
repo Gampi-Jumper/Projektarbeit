@@ -9,8 +9,8 @@ public class ScoreManager : MonoBehaviour
 
     private int levelScore = 10;
     private int level = 1;
-    private float levelMultiplier = 2f;
-    private int baseThreshold = 10;
+    private float levelMultiplier = 1.5f;
+    private int baseThreshold = 20;
 
     private int score = 0;
     private int highScore;
