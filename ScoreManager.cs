@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    private int levelScore = 10;
+    private int levelScore = 20;
     private int level = 1;
     private float levelMultiplier = 1.5f;
     private int baseThreshold = 20;
@@ -71,7 +71,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AddLevelScore()
     {
-        levelScore = PlayerPrefs.GetInt("LevelScore", 10);
+        levelScore = PlayerPrefs.GetInt("LevelScore", 20);
         levelScore += 1;
         PlayerPrefs.SetInt("LevelScore", levelScore);
         PlayerPrefs.Save();
@@ -83,7 +83,7 @@ public class ScoreManager : MonoBehaviour
         int newLevel = 0;
         int threshold = baseThreshold;
 
-        levelScore = PlayerPrefs.GetInt("LevelScore", 0);
+        levelScore = PlayerPrefs.GetInt("LevelScore", 20);
         while(levelScore >= threshold)
         {
             newLevel++;

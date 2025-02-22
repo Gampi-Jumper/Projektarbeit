@@ -5,6 +5,7 @@ using UnityEngine;
 public class Reset : MonoBehaviour
 {
     private int money;
+    private int levelScore;
 
     public void ResetAll()
     {
@@ -20,11 +21,16 @@ public class Reset : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void AddMoney()
+    public void AddAll()
     {
         money = PlayerPrefs.GetInt("Money", 0);
         money = money + 1000;
         PlayerPrefs.SetInt("Money", money);
+        PlayerPrefs.Save();
+
+        levelScore = PlayerPrefs.GetInt("LevelScore", 20);
+        levelScore = levelScore + 100;
+        PlayerPrefs.SetInt("LevelScore", levelScore);
         PlayerPrefs.Save();
     }
 }
