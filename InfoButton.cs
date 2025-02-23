@@ -8,9 +8,20 @@ public class InfoButton : MonoBehaviour
     public AudioSource clickAudio;
     public AudioSource closeAudio;
 
+    private int highScore;
+
     void Start()
     {
-        infoPanel.SetActive(false);
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (highScore == 0)
+        {
+            infoPanel.SetActive(true);
+        }
+        else
+        {
+            infoPanel.SetActive(false);            
+        }
+
     }
 
     public void OpenInfoPanel()
