@@ -9,6 +9,7 @@ public class Reset : MonoBehaviour
 
     public void ResetAll()
     {
+        PlayerPrefs.SetFloat("Progress", 0f);
         PlayerPrefs.SetInt("Granates", 0);
         PlayerPrefs.SetInt("Level", 1);
         PlayerPrefs.SetInt("LevelScore", 20);
